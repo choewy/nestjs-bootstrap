@@ -1,23 +1,25 @@
 {
-  "name": "@choewy/nestjs-utils",
+  "name": "@choewy/nestjs-bootstrap",
   "version": "0.0.0",
-  "description": "NestJS Utils",
+  "description": "NestJS Bootstrap",
   "main": "dist/libs/index.js",
   "license": "MIT",
   "author": "choewy",
-  "homepage": "https://github.com/choewy/nestjs-utils#readme",
+  "homepage": "https://github.com/choewy/nestjs-bootstrap#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/choewy/nestjs-utils.git"
+    "url": "git+https://github.com/choewy/nestjs-bootstrap.git"
   },
   "bugs": {
-    "url": "https://github.com/choewy/nestjs-utils/issues"
+    "url": "https://github.com/choewy/nestjs-bootstrap/issues"
   },
   "keywords": [
     "nestjs",
     "nestjs-interceptor",
     "nestjs-filter",
-    "nestjs-decorators"
+    "nestjs-decorators",
+    "nestjs-pipes",
+    "nestjs-bootstrap"
   ],
   "scripts": {
     "prepare": "husky",
