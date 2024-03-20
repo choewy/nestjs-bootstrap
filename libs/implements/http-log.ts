@@ -1,5 +1,6 @@
-import { ExecutionContext, HttpException, HttpStatus, InternalServerErrorException } from '@nestjs/common';
+import { ExecutionContext, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { WinstonLogger } from 'nest-winston';
 
 /**
  * Creates an instance of HttpLog
@@ -67,6 +68,10 @@ export class HttpLog {
   }
 
   private end() {
+    if (typeof this.latency === 'number') {
+      return this;
+    }
+
     this.latency = Date.now() - this.incomingTime;
     delete this.incomingTime;
     return this;
@@ -100,7 +105,7 @@ export class HttpLog {
   /**
    * Set Response
    *
-   * @description used in Interceptor(outgoing)
+   * @description used in Interceptor(outgoing, tap)
    * @param res: Express.Response
    */
   setResponse(res: Response) {
@@ -119,14 +124,10 @@ export class HttpLog {
    * @param exception HttpException
    * @param error Error
    */
-  setException(exception: HttpException, error?: Error) {
+  setException(exception: HttpException) {
     this.message = exception.name;
     this.status = exception.getStatus();
     this.exception = exception;
-
-    if (error) {
-      this.error = { name: error.name, message: error.message, stack: error.stack };
-    }
 
     return this.end();
   }
@@ -138,11 +139,43 @@ export class HttpLog {
    * @param error Error
    */
   setError(error: Error) {
-    this.exception = new InternalServerErrorException(error);
-    this.message = this.exception.name;
-    this.status = this.exception.getStatus();
     this.error = { name: error.name, message: error.message, stack: error.stack };
 
     return this.end();
+  }
+
+  /**
+   * Get Logger Method Args
+   *
+   * @description used in Interceptor(outgoing, catchError)
+   * @param error Error
+   */
+  getArgs<T = [unknown]>(): T {
+    const staticInstanceRef = Logger['staticInstanceRef'];
+
+    if (staticInstanceRef instanceof WinstonLogger) {
+      return [this] as T;
+    }
+
+    const args = [
+      JSON.stringify(
+        {
+          ...this,
+          context: undefined,
+          handler: undefined,
+          error: undefined,
+        },
+        null,
+        2,
+      ),
+    ];
+
+    if (this.error) {
+      args.push(this.error['stack']);
+    }
+
+    args.push([this.context, this.handler].join('.'));
+
+    return args as T;
   }
 }

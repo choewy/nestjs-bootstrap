@@ -10,4 +10,14 @@ export class AppController {
   getHello() {
     return this.appService.getHello();
   }
+
+  @Get('error')
+  throwError() {
+    return this.appService.throwError();
+  }
+
+  @Get('exception')
+  throwException() {
+    return this.appService.throwException();
+  }
 }
