@@ -1,9 +1,9 @@
-# NestJS Utils
+# NestJS Bootstrap
 
 ## Installing
 
 ```bash
-npm i @choewy/nestjs-utils
+npm i @choewy/nestjs-bootstrap
 ```
 
 ## Uses
