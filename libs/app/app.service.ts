@@ -1,8 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { ValidationError } from 'class-validator';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { v4 } from 'uuid';
-
-import { ValidationException } from '../implements';
 
 @Injectable()
 export class AppService {
@@ -11,7 +8,7 @@ export class AppService {
   }
 
   throwException() {
-    throw new ValidationException([new ValidationError()]);
+    throw new BadRequestException();
   }
 
   throwError() {

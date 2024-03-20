@@ -24,7 +24,7 @@ export class HttpLog {
   status = -1;
   latency: number;
   error?: object;
-  exception?: HttpException;
+  exception?: object | string;
 
   constructor(req: Request) {
     this.context = req['context'];
@@ -127,7 +127,7 @@ export class HttpLog {
   setException(exception: HttpException) {
     this.message = exception.name;
     this.status = exception.getStatus();
-    this.exception = exception;
+    this.exception = exception.getResponse();
 
     return this.end();
   }

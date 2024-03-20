@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 import { AppService } from './app.service';
+import { ValidateDto } from './dtos';
 
 @Controller()
 export class AppController {
@@ -19,5 +20,10 @@ export class AppController {
   @Get('exception')
   throwException() {
     return this.appService.throwException();
+  }
+
+  @Get('validate/:id')
+  validate(@Param() param: ValidateDto) {
+    return param;
   }
 }

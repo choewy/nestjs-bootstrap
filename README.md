@@ -8,6 +8,22 @@ npm i @choewy/nestjs-utils
 
 ## Uses
 
+### createBootstrapOptions
+
+```ts
+async function bootstrap() {
+  const bootstrapOptions = createBootstrapOptions();
+  const app = await NestFactory.create(AppModule);
+
+  app.useGlobalInterceptors(...bootstrapOptions.interceptors);
+  app.useGlobalPipes(...bootstrapOptions.pipes);
+
+  await app.listen(3000);
+}
+
+bootstrap();
+```
+
 ### HttpLogMiddleware
 
 #### Applying middleware
