@@ -1,13 +1,14 @@
 import { ArgumentsHost, Catch, HttpException, InternalServerErrorException, Logger } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 import { HttpLog } from '../implements';
 
 @Catch(HttpException, Error)
 export class HttpExceptionFilter extends BaseExceptionFilter {
   catch(e: HttpException | Error, host: ArgumentsHost): void {
-    const httpLog = HttpLog.get(host.switchToHttp().getRequest());
+    const req = host.switchToHttp().getRequest<Request>();
+    const httpLog = HttpLog.get(req).setUser(req.user);
 
     let exception = e as HttpException;
 

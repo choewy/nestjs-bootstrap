@@ -1,4 +1,5 @@
 import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from '@nestjs/common';
+import { Request } from 'express';
 import { Observable, tap } from 'rxjs';
 
 import { HttpLog } from '../implements';
@@ -8,7 +9,8 @@ export class HttpLoggingInterceptor implements NestInterceptor {
   constructor(readonly mode?: 'nest' | 'winston') {}
 
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
-    const httpLog = HttpLog.get(context.switchToHttp().getRequest()).setContext(context);
+    const req = context.switchToHttp().getRequest<Request>();
+    const httpLog = HttpLog.get(req).setContext(context).setUser(req.user);
 
     return next.handle().pipe(tap(() => Logger.verbose(...httpLog.setResponse(context.switchToHttp().getResponse()).getArgs())));
   }
