@@ -1,11 +1,15 @@
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, INestApplication, ValidationPipe } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
+import { HttpExceptionFilter } from '../filters';
 import { ValidationException } from '../implements';
 import { HttpLoggingInterceptor } from '../interceptors';
 import { BootstrapOptions } from '../interfaces';
+import { HttpLogMiddleware } from '../middlewares';
 
-export const createBootstrapOptions = (): BootstrapOptions => {
+export const createBootstrapOptions = (app: INestApplication): BootstrapOptions => {
+  app.use(HttpLogMiddleware.use);
+
   return {
     interceptors: [
       new ClassSerializerInterceptor(new Reflector(), {
@@ -27,6 +31,6 @@ export const createBootstrapOptions = (): BootstrapOptions => {
         },
       }),
     ],
-    filters: [],
+    filters: [new HttpExceptionFilter()],
   };
 };

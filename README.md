@@ -12,8 +12,8 @@ npm i @choewy/nestjs-bootstrap
 
 ```ts
 async function bootstrap() {
-  const bootstrapOptions = createBootstrapOptions();
   const app = await NestFactory.create(AppModule);
+  const bootstrapOptions = createBootstrapOptions(app);
 
   app.useGlobalInterceptors(...bootstrapOptions.interceptors);
   app.useGlobalPipes(...bootstrapOptions.pipes);
