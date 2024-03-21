@@ -3,6 +3,7 @@
   "version": "0.0.7",
   "description": "NestJS Bootstrap",
   "main": "dist/libs/index.js",
+  "types": "dist/libs/index.d.ts",
   "license": "MIT",
   "author": "choewy",
   "homepage": "https://github.com/choewy/nestjs-bootstrap#readme",
