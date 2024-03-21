@@ -28,8 +28,8 @@ export class HttpLog {
   error?: object;
 
   constructor(req: Request) {
-    this.context = req['context'];
-    this.handler = (req['context'] ? [req['context'], req['handler']] : [req['handler']]).join('.');
+    this.context = req.context;
+    this.handler = (req.context ? [req.context, req.handler] : [req.handler]).join('.');
     this.method = req.method;
     this.path = req.path;
     this.params = req.params;
@@ -38,8 +38,6 @@ export class HttpLog {
     this.xforwaredfor = req.header['x-forwared-for'];
   }
 
-  private static readonly KEY = 'httpLog';
-
   /**
    * Get HttpLog from Request
    *
@@ -47,11 +45,11 @@ export class HttpLog {
    * @return HttpLog
    */
   static get(request: Request): HttpLog {
-    if (request[this.KEY] instanceof HttpLog === false) {
-      request[this.KEY] = new HttpLog(request);
+    if (request.httpLog instanceof HttpLog === false) {
+      request.httpLog = new HttpLog(request);
     }
 
-    return request[this.KEY];
+    return request.httpLog;
   }
 
   /**
@@ -61,11 +59,11 @@ export class HttpLog {
    * @return HttpLog
    */
   static set(request: Request): HttpLog {
-    if (request[this.KEY] instanceof HttpLog === false) {
-      request[this.KEY] = new HttpLog(request);
+    if (request.httpLog instanceof HttpLog === false) {
+      request.httpLog = new HttpLog(request);
     }
 
-    return request[this.KEY];
+    return request.httpLog;
   }
 
   private end() {

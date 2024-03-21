@@ -18,7 +18,8 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["./libs/types/express/index.d.ts"]
   },
   "include": ["libs"],
   "exclude": ["node_modules", "test", "**/*spec.ts"]
