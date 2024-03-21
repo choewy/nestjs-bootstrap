@@ -1,6 +1,6 @@
 {
   "name": "@choewy/nestjs-bootstrap",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "NestJS Bootstrap",
   "main": "dist/libs/index.js",
   "license": "MIT",
