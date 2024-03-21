@@ -23,8 +23,9 @@ export class HttpLog {
   message = '';
   status = -1;
   latency: number;
-  error?: object;
   exception?: object | string;
+  exceptionCause?: unknown;
+  error?: object;
 
   constructor(req: Request) {
     this.context = req['context'];
@@ -128,6 +129,7 @@ export class HttpLog {
     this.message = exception.name;
     this.status = exception.getStatus();
     this.exception = exception.getResponse();
+    this.exceptionCause = exception.cause;
 
     return this.end();
   }
