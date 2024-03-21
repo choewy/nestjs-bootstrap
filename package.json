@@ -1,6 +1,6 @@
 {
   "name": "@choewy/nestjs-bootstrap",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "NestJS Bootstrap",
   "main": "dist/libs/index.js",
   "types": "dist/libs/global.d.ts",
