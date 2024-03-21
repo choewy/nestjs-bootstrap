@@ -28,8 +28,6 @@ export class HttpLog {
   error?: object;
 
   constructor(req: Request) {
-    this.context = req.context;
-    this.handler = (req.context ? [req.context, req.handler] : [req.handler]).join('.');
     this.method = req.method;
     this.path = req.path;
     this.params = req.params;
