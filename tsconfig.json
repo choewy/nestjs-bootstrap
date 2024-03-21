@@ -19,7 +19,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
-    "types": ["./libs/global.d.ts"]
+    "types": ["./libs/types/express/index.d.ts"]
   },
   "include": ["libs"],
   "exclude": ["node_modules", "test", "**/*spec.ts"]

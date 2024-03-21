@@ -7,3 +7,5 @@
 dist/tsconfig.tsbuildinfo
 dist/libs/app
 dist/libs/main*
+dist/types/app
+dist/types/main*
