@@ -12,6 +12,14 @@ export class HttpLoggingInterceptor implements NestInterceptor {
     const req = context.switchToHttp().getRequest<Request>();
     const httpLog = HttpLog.get(req).setContext(context).setUser(req.user);
 
-    return next.handle().pipe(tap(() => Logger.verbose(...httpLog.setResponse(context.switchToHttp().getResponse()).getArgs())));
+    return next.handle().pipe(
+      tap(() => {
+        if (['/', '/health'].includes(req.path)) {
+          Logger.debug(...httpLog.setResponse(context.switchToHttp().getResponse()).getArgs());
+        } else {
+          Logger.verbose(...httpLog.setResponse(context.switchToHttp().getResponse()).getArgs());
+        }
+      }),
+    );
   }
 }
